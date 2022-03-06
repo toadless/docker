@@ -1,0 +1,8 @@
+token=
+privilegedusers=
+spotifyid=
+spotifysecret=
+dbusername=
+dbpassword=
+dburl=
+dbdriver=org.postgresql.Driver

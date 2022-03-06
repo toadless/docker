@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  radio:
+    image: toadlessss/radio:latest
+    container_name: radio
+    restart: unless-stopped
+    volumes:
+      - ./bot.cfg:/home/radio/config/bot.cfg
+    networks:
+      - database-radio
+      - traefik
+    expose:
+      - 4444
+    labels:
+      traefik.enable: true
+      traefik.http.routers.radio.rule: Host(`radio.$PRIMARY_DOMAIN`)
+      traefik.http.routers.radio.entrypoints: https
+      traefik.http.services.radio.loadbalancer.server.port: 4444
+    healthcheck:
+      test: [ 'CMD', 'curl', '-f', 'http://localhost:4444/health' ]
+      interval: 1m00s
+      timeout: 5s
+      retries: 3
+      start_period: 1m00s
+
+networks:
+  database-radio:
+    name: database-radio
+  traefik:
+    external: true
