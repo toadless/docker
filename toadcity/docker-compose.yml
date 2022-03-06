@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+  toadcity:
+    image: toadlessss/toadcity:latest
+    container_name: toadcity
+    env_file:
+      - conf.env
+    networks:
+      - traefik
+    expose:
+      - 6969
+    labels:
+      traefik.enable: true
+      traefik.http.routers.toadcity.rule: Host(`toadcity.$PRIMARY_DOMAIN`)
+      traefik.http.routers.toadcity.entrypoints: https
+      traefik.http.services.toadcity.loadbalancer.server.port: 6969
+
+networks:
+  traefik:
+    external: true
