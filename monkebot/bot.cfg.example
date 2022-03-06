@@ -1,0 +1,7 @@
+token=
+privilegedusers=
+logchannel=
+dbusername=
+dbpassword=
+dburl=
+dbdriver=org.postgresql.Driver

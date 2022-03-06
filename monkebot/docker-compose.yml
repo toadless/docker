@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  monkebot:
+    image: toadlessss/monkebot:latest
+    container_name: monkebot
+    restart: always
+    volumes:
+      - ./bot.cfg:/home/monkebot/config/bot.cfg
+    networks:
+      - database
+
+networks:
+  database:
+    name: database
