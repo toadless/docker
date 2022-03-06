@@ -1,0 +1,44 @@
+global:
+    checkNewVersion: true
+    sendAnonymousUsage: false
+
+log:
+    level: INFO
+
+entryPoints:
+    http:
+        address: ':80'
+        http:
+            redirections:
+                entryPoint:
+                    to: https
+                    permanent: true
+    https:
+        address: ':443'
+        http:
+            tls:
+                certResolver: cloudflare
+                domains:
+                    - main: 'toadless.net'
+                      sans:
+                          - '*.toadless.net'
+
+providers:
+    docker:
+        exposedByDefault: false
+        swarmMode: false
+        network: traefik
+
+api:
+    dashboard: true
+
+certificatesResolvers:
+    cloudflare:
+        acme:
+            email: toad@toadless.net
+            storage: /letsencrypt/acme.json
+            dnsChallenge:
+                provider: cloudflare
+                resolvers:
+                    - "1.1.1.1:53"
+                    - "8.8.8.8:53"
