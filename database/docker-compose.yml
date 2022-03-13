@@ -13,12 +13,26 @@ services:
       - database
     expose:
       - 5432
+  database-dev:
+    image: postgres:10.5
+    container_name: database-dev
+    restart: unless-stopped
+    env_file:
+      - conf-dev.env
+    volumes:
+      - ./.data/postgres-dev/:/var/lib/postgresql/data/
+    networks:
+      - database-dev
+    ports:
+      - 6908:5432
+    expose:
+      - 5432
   database-radio:
     image: postgres:10.5
     container_name: database-radio
     restart: unless-stopped
     env_file:
-      - conf-dev.env
+      - conf-radio.env
     volumes:
       - ./.data/postgres-radio/:/var/lib/postgresql/data/
     networks:
@@ -53,6 +67,8 @@ networks:
     name: database
   database-radio:
     name: database-radio
+  database-dev:
+    name: database-dev
   pgadmin:
     name: pgadmin
   traefik:
