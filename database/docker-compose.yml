@@ -52,6 +52,7 @@ services:
     networks:
       - database
       - database-radio
+      - database-dev
       - pgadmin
       - traefik
     expose:
