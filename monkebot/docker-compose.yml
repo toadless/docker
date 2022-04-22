@@ -9,7 +9,23 @@ services:
       - ./bot.cfg:/home/monkebot/config/bot.cfg
     networks:
       - database
+      - traefik
+    expose:
+      - 4444
+    labels:
+      traefik.enable: true
+      traefik.http.routers.monkebot.rule: Host(`monkebot.$PRIMARY_DOMAIN`)
+      traefik.http.routers.monkebot.entrypoints: https
+      traefik.http.services.monkebot.loadbalancer.server.port: 4444
+    healthcheck:
+      test: [ 'CMD', 'curl', '-f', 'http://localhost:4444/health' ]
+      interval: 1m00s
+      timeout: 5s
+      retries: 3
+      start_period: 1m00s
 
 networks:
   database:
     name: database
+  traefik:
+    external: true
