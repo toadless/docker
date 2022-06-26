@@ -67,6 +67,7 @@ services:
       - database
       - database-radio
       - database-dev
+      - database-test
       - pgadmin
       - traefik
     expose:
