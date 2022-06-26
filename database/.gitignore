@@ -2,3 +2,4 @@
 conf.env
 conf-dev.env
 conf-radio.env
+conf-test.env

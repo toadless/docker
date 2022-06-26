@@ -41,6 +41,20 @@ services:
       - 6900:5432
     expose:
       - 5432
+  database-test:
+    image: postgres:10.5
+    container_name: database-test
+    restart: unless-stopped
+    env_file:
+      - conf-test.env
+    volumes:
+      - ./.data/postgres-radio/:/var/lib/postgresql/data/
+    networks:
+      - database-test
+    ports:
+      - 2550:5432
+    expose:
+      - 5432
   pgadmin:
     image: dpage/pgadmin4:4
     container_name: pgadmin
