@@ -84,6 +84,8 @@ networks:
     name: database-radio
   database-dev:
     name: database-dev
+  database-test:
+    name: database-test
   pgadmin:
     name: pgadmin
   traefik:
